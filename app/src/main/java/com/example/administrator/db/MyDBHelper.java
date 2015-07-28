@@ -10,19 +10,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyDBHelper extends SQLiteOpenHelper{
 
 
-    public MyDBHelper(Context context) {
-        super(context, "data.db", null, 5);
+    public MyDBHelper(Context context, String name, int version) {
+        super(context, name,null, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table user("+
+                  "id integer primary key autoincrement,"+
                    "name text,"+
                    "phone text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+     db.execSQL("drop table if exists user");
+        onCreate(db);
     }
 }
